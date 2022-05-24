@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spotify_ui/data/data.dart';
+import 'package:flutter_spotify_ui/widgets/widgets.dart';
 
 class PlaylistScreen extends StatefulWidget {
   final Playlist playlist;
@@ -28,7 +29,9 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                 iconData: Icons.chevron_left,
                 onTap: () {},
               ),
-              SizedBox(width: 16,),
+              SizedBox(
+                width: 16,
+              ),
               AppBarChevronIcon(
                 iconData: Icons.chevron_right,
                 onTap: () {},
@@ -36,6 +39,33 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
             ],
           ),
         ),
+        actions: [
+          TextButton.icon(
+            style: TextButton.styleFrom(
+              primary: Theme.of(context).iconTheme.color,
+            ),
+            onPressed: () {},
+            icon: Icon(
+              Icons.account_circle,
+              size: 30,
+            ),
+            label: Text('shuvo'),
+          ),
+          SizedBox(
+            width: 8,
+          ),
+          IconButton(
+            padding: EdgeInsets.only(),
+            onPressed: () {},
+            icon: Icon(
+              Icons.keyboard_arrow_down_rounded,
+              size: 30,
+            ),
+          ),
+          SizedBox(
+            width: 20,
+          ),
+        ],
       ),
       body: Container(
         width: double.infinity,
@@ -49,6 +79,12 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
             ],
             stops: [0.0, 0.3],
           ),
+        ),
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 60),
+          children: [
+            PlaylistHeader(playlist: widget.playlist)
+          ],
         ),
       ),
     );
