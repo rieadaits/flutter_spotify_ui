@@ -7,11 +7,12 @@ import 'package:flutter_spotify_ui/widgets/widgets.dart';
 
 import 'data/data.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if(!kIsWeb && (Platform.isMacOS || Platform.isLinux || Platform.isWindows)){
-    Size size = await DesktopWindow.getWindowSize();
-    await DesktopWindow.setMinWindowSize( Size(size.width * 0.5, size.height * 0.5),);
+  if (!kIsWeb && (Platform.isMacOS || Platform.isLinux || Platform.isWindows)) {
+    final size  = await DesktopWindow.getWindowSize();
+    await DesktopWindow.setMinWindowSize(Size(700, 600));
+    print(size);
   }
   runApp(MyApp());
 }
@@ -72,11 +73,13 @@ class Shell extends StatelessWidget {
             child: Row(
               children: [
                 SideMenu(),
-                Expanded(child: PlaylistScreen(playlist: lofihiphopPlaylist,)),
+                Expanded(
+                    child: PlaylistScreen(
+                  playlist: lofihiphopPlaylist,
+                )),
               ],
             ),
           ),
-
           Container(
             height: 84,
             width: double.infinity,
