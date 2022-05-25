@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spotify_ui/data/data.dart';
 import 'package:flutter_spotify_ui/widgets/widgets.dart';
 
-import '../widgets/app_drawer.dart';
-
 class PlaylistScreen extends StatefulWidget {
   final Playlist playlist;
 

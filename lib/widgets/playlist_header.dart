@@ -3,7 +3,6 @@ import 'package:flutter_spotify_ui/data/data.dart';
 
 class PlaylistHeader extends StatelessWidget {
   final Playlist playlist;
-
   const PlaylistHeader({Key? key, required this.playlist}) : super(key: key);
 
   @override
@@ -83,15 +82,9 @@ class _PlaylistButtons extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),
             ),
-            backgroundColor: Theme
-                .of(context)
-                .accentColor,
-            primary: Theme
-                .of(context)
-                .iconTheme
-                .color,
-            textStyle: Theme
-                .of(context)
+            backgroundColor: Theme.of(context).accentColor,
+            primary: Theme.of(context).iconTheme.color,
+            textStyle: Theme.of(context)
                 .textTheme
                 .caption!
                 .copyWith(fontSize: 12.0, letterSpacing: 2.0),
@@ -113,11 +106,7 @@ class _PlaylistButtons extends StatelessWidget {
         const Spacer(),
         Text(
           'FOLLOWERS\n$followers',
-          style: Theme
-              .of(context)
-              .textTheme
-              .overline!
-              .copyWith(fontSize: 12.0),
+          style: Theme.of(context).textTheme.overline!.copyWith(fontSize: 12.0),
           textAlign: TextAlign.right,
         )
       ],
