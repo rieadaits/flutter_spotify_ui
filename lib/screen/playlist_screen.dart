@@ -1,7 +1,10 @@
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spotify_ui/data/data.dart';
 import 'package:flutter_spotify_ui/widgets/widgets.dart';
+
+import '../widgets/app_drawer.dart';
 
 class PlaylistScreen extends StatefulWidget {
   final Playlist playlist;
@@ -14,6 +17,7 @@ class PlaylistScreen extends StatefulWidget {
 
 class _PlaylistScreenState extends State<PlaylistScreen> {
   late ScrollController _scrollController;
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
 
   @override
   void initState() {
@@ -29,16 +33,37 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final bool displayMobileLayout = MediaQuery.of(context).size.width <= 700;
+
     return Scaffold(
+      key: _key,
+      drawer: displayMobileLayout ? const Drawer(child: SideMenu()) : null,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leadingWidth: 140,
+        leadingWidth: 150,
         leading: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Row(
             children: [
+              if (displayMobileLayout)...[
+                IconButton(
+                  onPressed: () {
+                    _key.currentState?.openDrawer();
+                    log('lol');
+                  },
+                  icon: Icon(
+                    Icons.menu,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(
+                  width: 16,
+                ),
+              ],
+
               AppBarChevronIcon(
                 iconData: Icons.chevron_left,
                 onTap: () {},
@@ -46,36 +71,39 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
               SizedBox(
                 width: 16,
               ),
-              if (MediaQuery.of(context).size.width > 700)   AppBarChevronIcon(
-                iconData: Icons.chevron_right,
-                onTap: () {},
-              ),
+              if (MediaQuery.of(context).size.width > 700)
+                AppBarChevronIcon(
+                  iconData: Icons.chevron_right,
+                  onTap: () {},
+                ),
             ],
           ),
         ),
         actions: [
-          if (MediaQuery.of(context).size.width > 700) TextButton.icon(
-            style: TextButton.styleFrom(
-              primary: Theme.of(context).iconTheme.color,
+          if (MediaQuery.of(context).size.width > 700)
+            TextButton.icon(
+              style: TextButton.styleFrom(
+                primary: Theme.of(context).iconTheme.color,
+              ),
+              onPressed: () {},
+              icon: Icon(
+                Icons.account_circle,
+                size: 30,
+              ),
+              label: Text('shuvo'),
             ),
-            onPressed: () {},
-            icon: Icon(
-              Icons.account_circle,
-              size: 30,
-            ),
-            label: Text('shuvo'),
-          ),
           SizedBox(
             width: 8,
           ),
-          IconButton(
-            padding: EdgeInsets.only(),
-            onPressed: () {},
-            icon: Icon(
-              Icons.keyboard_arrow_down_rounded,
-              size: 30,
+          if (MediaQuery.of(context).size.width <= 700)
+            IconButton(
+              padding: EdgeInsets.only(),
+              onPressed: () {},
+              icon: Icon(
+                Icons.keyboard_arrow_down_rounded,
+                size: 30,
+              ),
             ),
-          ),
           SizedBox(
             width: 20,
           ),

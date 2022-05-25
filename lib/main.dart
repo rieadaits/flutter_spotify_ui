@@ -4,6 +4,7 @@ import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spotify_ui/model/current_track_model.dart';
+import 'package:flutter_spotify_ui/widgets/app_drawer.dart';
 import 'package:flutter_spotify_ui/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -71,13 +72,15 @@ class Shell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool displayMobileLayout = MediaQuery.of(context).size.width <= 700;
+
     return Scaffold(
       body: Column(
         children: [
           Expanded(
             child: Row(
               children: [
-                if (MediaQuery.of(context).size.width > 800) SideMenu(),
+                if (!displayMobileLayout) SideMenu(),
                 Expanded(
                     child: PlaylistScreen(
                   playlist: lofihiphopPlaylist,
