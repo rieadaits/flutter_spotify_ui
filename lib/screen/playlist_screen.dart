@@ -46,7 +46,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
               SizedBox(
                 width: 16,
               ),
-              AppBarChevronIcon(
+              if (MediaQuery.of(context).size.width > 700)   AppBarChevronIcon(
                 iconData: Icons.chevron_right,
                 onTap: () {},
               ),
@@ -54,7 +54,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           ),
         ),
         actions: [
-          TextButton.icon(
+          if (MediaQuery.of(context).size.width > 700) TextButton.icon(
             style: TextButton.styleFrom(
               primary: Theme.of(context).iconTheme.color,
             ),
