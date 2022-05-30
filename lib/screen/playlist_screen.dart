@@ -3,6 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_spotify_ui/data/data.dart';
 import 'package:flutter_spotify_ui/widgets/widgets.dart';
+import 'package:provider/provider.dart';
+
+import '../model/current_track_model.dart';
 
 class PlaylistScreen extends StatefulWidget {
   final Playlist playlist;
@@ -16,11 +19,18 @@ class PlaylistScreen extends StatefulWidget {
 class _PlaylistScreenState extends State<PlaylistScreen> {
   late ScrollController _scrollController;
   final GlobalKey<ScaffoldState> _key = GlobalKey();
+  final showBtn = false;
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      //listener
+      context
+          .read<CurrentTrackModel>()
+          .showPlayButton(_scrollController.offset);
+    });
   }
 
   @override
@@ -32,20 +42,21 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
   @override
   Widget build(BuildContext context) {
     final bool displayMobileLayout = MediaQuery.of(context).size.width <= 700;
+    final showButton = context.watch<CurrentTrackModel>().showBtn;
 
     return Scaffold(
       key: _key,
       drawer: displayMobileLayout ? const Drawer(child: SideMenu()) : null,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: showButton ? const Color(0xFFAF1018) : Colors.transparent,
         elevation: 0,
-        leadingWidth: 150,
+        leadingWidth: 200,
         leading: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Row(
             children: [
-              if (displayMobileLayout)...[
+              if (displayMobileLayout) ...[
                 IconButton(
                   onPressed: () {
                     _key.currentState?.openDrawer();
@@ -61,7 +72,6 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                   width: 16,
                 ),
               ],
-
               AppBarChevronIcon(
                 iconData: Icons.chevron_left,
                 onTap: () {},
@@ -74,6 +84,22 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                   iconData: Icons.chevron_right,
                   onTap: () {},
                 ),
+              if (showButton) ...[
+                Container(
+                  height: 40,
+                  padding: EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).accentColor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                    padding: const EdgeInsets.only(),
+                    icon: const Icon(Icons.play_arrow_sharp, color: Colors.black87,),
+                    iconSize: 34.0,
+                    onPressed: () {},
+                  ),
+                ),
+              ],
             ],
           ),
         ),
