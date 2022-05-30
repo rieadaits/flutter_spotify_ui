@@ -51,8 +51,9 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
       appBar: AppBar(
         backgroundColor: showButton ? const Color(0xFFAF1018) : Colors.transparent,
         elevation: 0,
-        leadingWidth: 200,
-        leading: Padding(
+        titleSpacing: 0,
+        automaticallyImplyLeading: false,
+        title: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Row(
             children: [
